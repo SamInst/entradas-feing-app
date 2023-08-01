@@ -14,7 +14,7 @@ public class Entradas {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Quartos quartos;
     private LocalTime horaEntrada;
     private LocalTime horaSaida;

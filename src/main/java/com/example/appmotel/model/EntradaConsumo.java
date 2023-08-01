@@ -9,7 +9,7 @@ public class EntradaConsumo {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private Integer quantidade;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private Itens itens;
     @ManyToOne
     @JsonIgnore

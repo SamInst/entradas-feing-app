@@ -14,7 +14,7 @@ public class QuartosFixture {
     Long entrada_id = 1L;
     Quartos quarto = quartosFeing.findById(entrada_id);
     public static Quartos quartoDisponivel(){
-        return new Quartos()
+        return new Quartos();
     }
     public static Quartos quartoOcupado(){
         return new Quartos(
