@@ -129,8 +129,7 @@ public class Entradas {
 
     public Float getTotal_entrada() {
         return total_entrada;
-    }
-
+    }git s
     public void setTotal_entrada(Float total_entrada) {
         this.total_entrada = total_entrada;
     }
