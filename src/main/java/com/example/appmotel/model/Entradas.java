@@ -14,7 +14,8 @@ public class Entradas {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "fk482peajwvqgc6ffu2dnxmnnrt", nullable = false)
     private Quartos quartos;
     private LocalTime horaEntrada;
     private LocalTime horaSaida;
@@ -118,18 +119,15 @@ public class Entradas {
     public void setStatusEntrada(StatusEntrada statusEntrada) {
         this.statusEntrada = statusEntrada;
     }
-
     public void setPlaca(String placa) {
         this.placa = placa;
     }
-
     public void setEntradaConsumo(List<EntradaConsumo> entradaConsumo) {
         this.entradaConsumo = entradaConsumo;
     }
-
     public Float getTotal_entrada() {
         return total_entrada;
-    }git s
+    }
     public void setTotal_entrada(Float total_entrada) {
         this.total_entrada = total_entrada;
     }

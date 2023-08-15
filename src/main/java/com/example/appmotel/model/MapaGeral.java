@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
+@Table(name = "tb_mapa_geral")
 public class MapaGeral {
     @Id
     private Long id;
