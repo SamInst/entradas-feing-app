@@ -2,8 +2,10 @@ package com.example.appmotel.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "tb_itens")
 public class Itens {
     @Id
     private Long id;
@@ -39,4 +41,5 @@ public class Itens {
     public void setValor(Float valor) {
         this.valor = valor;
     }
+
 }

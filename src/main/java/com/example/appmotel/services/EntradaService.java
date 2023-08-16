@@ -2,9 +2,9 @@ package com.example.appmotel.services;
 
 import com.example.appmotel.exceptions.EntityConflict;
 import com.example.appmotel.exceptions.EntityNotFound;
-import com.example.appmotel.feing.ItensFeing;
-import com.example.appmotel.feing.MapaFeing;
-import com.example.appmotel.feing.QuartosFeing;
+import com.example.appmotel.feign.ItensFeing;
+import com.example.appmotel.feign.MapaFeing;
+import com.example.appmotel.feign.QuartosFeing;
 import com.example.appmotel.model.*;
 import com.example.appmotel.repository.EntradaConsumoRepository;
 import com.example.appmotel.repository.EntradaRepository;
@@ -121,6 +121,8 @@ public class EntradaService {
             case NECESSITA_LIMPEZA -> throw new EntityConflict("Quarto Precisa de limpeza!");
             case RESERVADO -> throw new EntityConflict("Quarto Reservado!");
         }
+        quartoOut.setStatusDoQuarto(StatusDoQuarto.OCUPADO);
+        quartosFeing.saveQuartos(quartoOut);
         Entradas request = new Entradas(
             quartoOut,
             LocalTime.now(),
@@ -131,8 +133,6 @@ public class EntradaService {
             TipoPagamento.PENDENTE,
             StatusPagamento.PENDENTE
         );
-        quartoOut.setStatusDoQuarto(StatusDoQuarto.OCUPADO);
-        quartosFeing.saveQuartos(quartoOut);
         return entradaRepository.save(request);
     }
 
@@ -197,7 +197,7 @@ public class EntradaService {
         valorTotal = totalMapaGeral + entradaEConsumo;
     }
 
-    public void validacaoHorario(){
+    private void validacaoHorario(){
         LocalTime noite = LocalTime.of(18,0,0);
         LocalTime dia = LocalTime.of(6,0,0);
         relatorio = LocalTime.now().isAfter(noite) || LocalTime.now().isBefore(dia)

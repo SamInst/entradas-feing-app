@@ -4,15 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "tb_entrada_consumo")
 public class EntradaConsumo {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer quantidade;
     @ManyToOne
+    @JoinColumn(name = "fkc9pcieysq53b746buc8e0w53t", nullable = false)
     private Itens itens;
     @ManyToOne
     @JsonIgnore
+    @JoinColumn(name = "fk64r481rxs9s131p9suxf8ppxe", nullable = false)
     private Entradas entradas;
     private Float total;
 
@@ -46,4 +49,5 @@ public class EntradaConsumo {
     public EntradaConsumo(Itens itens) {
         this.itens = itens;
     }
+
 }
