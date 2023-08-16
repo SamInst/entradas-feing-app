@@ -60,12 +60,12 @@ public class EntradaConsumoService {
         final var item = itensFeing.findItemById(entradaConsumo.getItens().getId());
         Entradas entrada = entradaRepository.findById(entradaConsumo.getEntradas().getId())
                 .orElseThrow(()-> new EntityNotFound("entrada não encontrada"));
-        EntradaConsumo entradaConsumo1 = new EntradaConsumo(
+        EntradaConsumo novoConsumo = new EntradaConsumo(
                 entradaConsumo.getQuantidade(),
                 item,
                 entrada
         );
-        return entradaConsumoRepository.save(entradaConsumo1);
+        return entradaConsumoRepository.save(novoConsumo);
     }
 
     public void deletaConsumoPorEntradaId(Long id_consumo) {

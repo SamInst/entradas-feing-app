@@ -121,6 +121,8 @@ public class EntradaService {
             case NECESSITA_LIMPEZA -> throw new EntityConflict("Quarto Precisa de limpeza!");
             case RESERVADO -> throw new EntityConflict("Quarto Reservado!");
         }
+        quartoOut.setStatusDoQuarto(StatusDoQuarto.OCUPADO);
+        quartosFeing.saveQuartos(quartoOut);
         Entradas request = new Entradas(
             quartoOut,
             LocalTime.now(),
@@ -131,8 +133,6 @@ public class EntradaService {
             TipoPagamento.PENDENTE,
             StatusPagamento.PENDENTE
         );
-        quartoOut.setStatusDoQuarto(StatusDoQuarto.OCUPADO);
-        quartosFeing.saveQuartos(quartoOut);
         return entradaRepository.save(request);
     }
 

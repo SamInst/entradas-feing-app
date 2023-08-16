@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Table(name = "tb_entrada_consumo")
 public class EntradaConsumo {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer quantidade;
     @ManyToOne
@@ -49,4 +49,5 @@ public class EntradaConsumo {
     public EntradaConsumo(Itens itens) {
         this.itens = itens;
     }
+
 }

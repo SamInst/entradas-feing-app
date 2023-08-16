@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "tb_entradas")
 public class Entradas {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "fk482peajwvqgc6ffu2dnxmnnrt", nullable = false)
