@@ -83,7 +83,7 @@ public class EntradaService {
         calcularHora(id);
         Double totalConsumo = entradaRepository.totalConsumo(id);
 
-        if (totalConsumo == null){ totalConsumo = (double) 0; }
+        if (totalConsumo == null){ totalConsumo = 0D; }
         double soma = totalConsumo + valorEntrada;
 
         List<ConsumoResponse> consumoResponseList = new ArrayList<>();
@@ -115,25 +115,26 @@ public class EntradaService {
     }
 
     public Entradas registerEntrada(Entradas entradas) {
-        Quartos quartoOut = quartosFeing.findById(entradas.getQuartos().getId());
-        switch (quartoOut.getStatusDoQuarto()) {
-            case OCUPADO -> throw new EntityConflict("Quarto Ocupado");
-            case NECESSITA_LIMPEZA -> throw new EntityConflict("Quarto Precisa de limpeza!");
-            case RESERVADO -> throw new EntityConflict("Quarto Reservado!");
-        }
-        quartoOut.setStatusDoQuarto(StatusDoQuarto.OCUPADO);
-        quartosFeing.saveQuartos(quartoOut);
-        Entradas request = new Entradas(
-            quartoOut,
-            LocalTime.now(),
-            LocalTime.of(0,0),
-            entradas.getPlaca(),
-            StatusEntrada.ATIVA,
-            LocalDate.now(),
-            TipoPagamento.PENDENTE,
-            StatusPagamento.PENDENTE
-        );
-        return entradaRepository.save(request);
+            Quartos quartoOut = quartosFeing.findById(entradas.getQuartos().getId());
+            switch (quartoOut.getStatusDoQuarto()) {
+                case OCUPADO -> throw new EntityConflict("Quarto Ocupado");
+                case NECESSITA_LIMPEZA -> throw new EntityConflict("Quarto Precisa de limpeza!");
+                case RESERVADO -> throw new EntityConflict("Quarto Reservado!");
+            }
+            Entradas request = new Entradas(
+                    quartoOut,
+                    LocalTime.now(),
+                    LocalTime.of(0, 0),
+                    entradas.getPlaca(),
+                    StatusEntrada.ATIVA,
+                    LocalDate.now(),
+                    TipoPagamento.PENDENTE,
+                    StatusPagamento.PENDENTE
+            );
+            var entrada = entradaRepository.save(request);
+            quartoOut.setStatusDoQuarto(StatusDoQuarto.OCUPADO);
+            quartosFeing.saveQuartos(quartoOut);
+            return entrada;
     }
 
     public void updateEntradaData(Long entradaId, Entradas request) {
